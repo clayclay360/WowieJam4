@@ -25,7 +25,7 @@ public class human : MonoBehaviour
     [SerializeField]
     private float IdleSpeed = 1f;
 
-    private Vector2 movement = new Vector2();
+    public Vector2 movement = new Vector2();
 
     private Rigidbody2D rigidBody;
 
@@ -65,9 +65,10 @@ public class human : MonoBehaviour
         movement += new Vector2(Random.Range(-steerStrength, steerStrength), Random.Range(-steerStrength, steerStrength));
             
         coolDownTimer = Mathf.Max(coolDownTimer - Time.deltaTime, 0);
-        if (coolDownTimer <=0)
+        if (coolDownTimer <= 0)
         {
-            movement = new Vector2();
+            movement = new Vector2(Random.Range(-steerStrength * coolDownTimerLength, steerStrength * coolDownTimerLength), Random.Range(-steerStrength * coolDownTimerLength, steerStrength * coolDownTimerLength));
+            coolDownTimer = coolDownTimerLength;
             state = States.Idle;
         }
         if ( state == States.Idle)
