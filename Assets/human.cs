@@ -4,15 +4,84 @@ using UnityEngine;
 
 public class human : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum States 
     {
-        
+    Idle,
+    Bark_Towards,
+    Bark_Away
     }
 
-    // Update is called once per frame
-    void Update()
+    public States state = States.Idle;
+    public Vector2 ScareDirection;
+    public float coolDownTimerLength = 3f;
+    private float coolDownTimer = 0f;
+
+
+    [Header("Steering Mechanics")]
+    [SerializeField]
+    public float steerStrength = 0.2f;
+    [SerializeField]
+    private float Speed = 8;
+    [SerializeField]
+    private float IdleSpeed = 1f;
+
+    private Vector2 movement = new Vector2();
+
+    private Rigidbody2D rigidBody;
+
+    private void Start()
     {
-        
+        rigidBody = GetComponent<Rigidbody2D>();
     }
+    public void Bark(Vector2 dogPosition )
+    {
+        ScareDirection = dogPosition - new Vector2(transform.position.x, transform.position.y);
+        coolDownTimer = coolDownTimerLength;
+
+        print("left click");
+        //move
+        movement = ScareDirection.normalized * 30;
+        state = States.Bark_Away;
+    }
+
+    public void BarkAway(Vector2 dogPosition)
+    {
+        ScareDirection = dogPosition - new Vector2(transform.position.x, transform.position.y);
+        coolDownTimer = coolDownTimerLength;
+
+        
+        print("right Click");
+        movement = -ScareDirection.normalized * 30;
+        state = States.Bark_Towards;
+    }
+
+    private void Update()
+    {
+        HandleState();
+    }
+
+    void HandleState()
+    {
+        movement += new Vector2(Random.Range(-steerStrength, steerStrength), Random.Range(-steerStrength, steerStrength));
+            
+        coolDownTimer = Mathf.Max(coolDownTimer - Time.deltaTime, 0);
+        if (coolDownTimer <=0)
+        {
+            movement = new Vector2();
+            state = States.Idle;
+        }
+        if ( state == States.Idle)
+        {
+            rigidBody.velocity = movement.normalized * IdleSpeed;
+        }
+
+        if( state == States.Bark_Towards || state == States.Bark_Away)
+        {
+            rigidBody.velocity = movement.normalized * Speed;
+        }
+
+    }
+
+
+
 }
