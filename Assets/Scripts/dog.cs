@@ -6,6 +6,7 @@ public class dog : MonoBehaviour
 {
     public GameObject humanGameObject;
     public human humanPlayer;
+    public AudioSource soundBark;
     public float speed = 10;
     public Rigidbody2D rigidBody;
     public Vector2 moveDirection = new Vector2();
@@ -39,6 +40,7 @@ public class dog : MonoBehaviour
         if (IsCloseEnough())
         {
             humanPlayer.Bark(new Vector2(transform.position.x, transform.position.y));
+            soundBark.Play();
         }
     }
 
@@ -47,6 +49,7 @@ public class dog : MonoBehaviour
         if (IsCloseEnough())
         {
             humanPlayer.BarkAway(new Vector2(transform.position.x, transform.position.y));
+            StartCoroutine(BarkTwiceSound());
         }
     }
 
@@ -59,4 +62,12 @@ public class dog : MonoBehaviour
         }
         return true;
     }
+
+    IEnumerator BarkTwiceSound()
+    {
+        soundBark.Play();
+        yield return new WaitForSeconds(0.5f);
+        soundBark.Play();
+    }
+   
 }
