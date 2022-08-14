@@ -153,8 +153,8 @@ public class CarController : MonoBehaviour
                 }
             }
 
-            //Debug.Log(gameObject.name + "Car Hit " + hit.collider.name);
-            //Debug.Log("Stop");
+            Debug.Log(gameObject.name + "Car Hit " + hit.collider.name);
+            Debug.Log("Stop");
         }
         else
         {
