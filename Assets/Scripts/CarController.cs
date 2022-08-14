@@ -9,7 +9,7 @@ public class CarController : MonoBehaviour
     public bool Go;
     public enum DirectionEnum { Right, Left, Up, Down };
     public DirectionEnum Direction;
-    public enum SideEnum { Right, Left}
+    public enum SideEnum { Right, Left, Vertical}
     public SideEnum Side;
 
     [Space]
@@ -133,18 +133,45 @@ public class CarController : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(StartRay.position, EndRay.position);
         Debug.DrawLine(StartRay.position,EndRay.position);
-        if(hit.collider != null && hit.collider.GetComponent<CarController>() && hit.collider != this.gameObject.GetComponent<Collider2D>())
+        if(hit.collider != null && hit.collider.GetComponent<CarController>() && 
+            hit.collider != this.gameObject.GetComponent<Collider2D>())
         {
+            CarController carController = hit.collider.GetComponent<CarController>();
+
             Go = false;
             CarInFront = true;
-            Debug.Log("Stop");
+
+            if (Side == SideEnum.Vertical)
+            {
+                if (carController.Side == SideEnum.Left || carController.Side == SideEnum.Right)
+                {
+                    if (!carController.Go)
+                    {
+                        Go = true;
+                        CarInFront = false;
+                    }
+                }
+            }
+
+            //Debug.Log(gameObject.name + "Car Hit " + hit.collider.name);
+            //Debug.Log("Stop");
         }
         else
         {
             if (CarInFront)
             {
-                Go = true;
-
+                if(LocalTLS != null && LocalTLS.Light == TrafficLightScript.LightEnum.Red)
+                {
+                    //we need to add a distance between the car and localTLS
+                    return;
+                }
+                else
+                {
+                    Go = true;
+                    CarInFront = false;
+                    Debug.Log(gameObject.name);
+                    Debug.Log("Go");
+                }
             }
         }
     }
