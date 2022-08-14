@@ -28,10 +28,11 @@ public class human : MonoBehaviour
     public Vector2 movement = new Vector2();
 
     private Rigidbody2D rigidBody;
-
+    private Animator animator;
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
     public void Bark(Vector2 dogPosition )
     {
@@ -58,6 +59,7 @@ public class human : MonoBehaviour
     private void Update()
     {
         HandleState();
+        animator.SetFloat("Run", movement.magnitude);
     }
 
     void HandleState()
