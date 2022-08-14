@@ -38,7 +38,7 @@ public class human : MonoBehaviour
         ScareDirection = dogPosition - new Vector2(transform.position.x, transform.position.y);
         coolDownTimer = coolDownTimerLength;
 
-        print("left click");
+
         //move
         movement = ScareDirection.normalized * 30;
         state = States.Bark_Away;
@@ -50,7 +50,7 @@ public class human : MonoBehaviour
         coolDownTimer = coolDownTimerLength;
 
         
-        print("right Click");
+      
         movement = -ScareDirection.normalized * 30;
         state = States.Bark_Towards;
     }
@@ -62,7 +62,7 @@ public class human : MonoBehaviour
 
     void HandleState()
     {
-        movement += new Vector2(Random.Range(-steerStrength, steerStrength), Random.Range(-steerStrength, steerStrength));
+        movement += new Vector2(Random.Range(-steerStrength, steerStrength), Random.Range(-steerStrength, steerStrength)) * Time.deltaTime;
             
         coolDownTimer = Mathf.Max(coolDownTimer - Time.deltaTime, 0);
         if (coolDownTimer <= 0)
