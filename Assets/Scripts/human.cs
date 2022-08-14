@@ -55,9 +55,21 @@ public class human : MonoBehaviour
         state = States.Bark_Towards;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+   
+        if (collision.gameObject.tag == "Enemy")
+        {
+            //lose
+            print("lose");
+        }
+    }
     private void Update()
     {
         HandleState();
+
+
     }
 
     void HandleState()
@@ -83,6 +95,6 @@ public class human : MonoBehaviour
 
     }
 
-
+    
 
 }
