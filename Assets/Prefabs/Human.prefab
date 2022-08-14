@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3261426322976178813}
   - component: {fileID: 3261426322976178812}
   - component: {fileID: 335291427}
+  - component: {fileID: 8208669960886848366}
   m_Layer: 0
   m_Name: Human
   m_TagString: Untagged
@@ -128,6 +129,22 @@ MonoBehaviour:
   IdleSpeed: 2
   movement: {x: 0, y: 0}
 --- !u!70 &335291427
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3261426322976178815}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.0067852736}
+  m_Size: {x: 1, y: 2.0173676}
+  m_Direction: 0
+--- !u!70 &8208669960886848366
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

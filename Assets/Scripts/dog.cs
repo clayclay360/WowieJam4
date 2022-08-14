@@ -16,6 +16,14 @@ public class dog : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         humanPlayer = humanGameObject.GetComponent<human>();
     }
+
+    private void OnCollisionEnter2d(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            print("lost");
+        }
+    }
     void Update()
     {
 
