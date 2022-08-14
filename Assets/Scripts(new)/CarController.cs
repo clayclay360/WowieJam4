@@ -24,12 +24,13 @@ public class CarController : MonoBehaviour
     private Vector2 Movement;
     private Animator CarAnimator;
     private TrafficLightScript LocalTLS;
+    private CarSpawner Spawner;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         CarAnimator = GetComponent<Animator>();
-        ChangeDirection(StartDirection);
+        Spawner = FindObjectOfType<CarSpawner>();
     }
 
     // Update is called once per frame
@@ -173,6 +174,15 @@ public class CarController : MonoBehaviour
                     Debug.Log("Go");
                 }
             }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.name == "Boarders")
+        {
+            Spawner.NumberOfCars--;
+            Destroy(gameObject);
         }
     }
 }
