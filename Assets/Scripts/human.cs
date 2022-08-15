@@ -89,6 +89,7 @@ public class human : MonoBehaviour
             {
                 gameController.GameOver();
                 gameController.gameStarted = false;
+                animator.SetBool("Death", true);
             }
         }
 
@@ -96,6 +97,8 @@ public class human : MonoBehaviour
         {
             Money++;
             gameController.numberOfCoins--;
+            AudioSource AS = GetComponent<AudioSource>();
+            AS.Play();
             Destroy(collision.gameObject);
             gameController.walletText.text = "Wallet: $" + Money.ToString();
         }

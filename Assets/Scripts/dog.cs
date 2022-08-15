@@ -25,13 +25,18 @@ public class dog : MonoBehaviour
         gameController = FindObjectOfType<GameController>();
     }
 
-    private void OnCollisionEnter2d(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        CarController carController = collision.gameObject.GetComponent<CarController>();
-        if (carController.Go)
+        if (collision.gameObject.CompareTag("Car"))
         {
-            gameController.GameOver();
-            gameController.gameStarted = false;
+            Debug.Log("AHHHHHHHH");
+            CarController carController = collision.gameObject.GetComponent<CarController>();
+            if (carController.Go)
+            {
+                gameController.GameOver();
+                gameController.gameStarted = false;
+                animator.SetBool("Death", true);
+            }
         }
     }
     void Update()

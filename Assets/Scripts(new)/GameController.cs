@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -32,13 +33,24 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        //StartGame();
+        if (gameStarted)
+        {
+            StartGame();
+        }
     }
 
     public void StartGame()
     {
         gameStarted = true;
         StartCoroutine(CountDown());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(1, LoadSceneMode.Single);
+        }
     }
 
     public void SpawnPlayer()
@@ -82,5 +94,6 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         countDownText.text = "Game Over";
+        countDownText.color = Color.black;
     }
 }
