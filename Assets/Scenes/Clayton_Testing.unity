@@ -741,6 +741,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PedestrialHolder
       objectReference: {fileID: 0}
+    - target: {fileID: 5028899546281438323, guid: 7437714e68a916a4581ae2c3e6287159, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 7437714e68a916a4581ae2c3e6287159, type: 3}
@@ -1152,7 +1156,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -100
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -2542,6 +2546,7 @@ GameObject:
   - component: {fileID: 1860115422}
   - component: {fileID: 1860115421}
   - component: {fileID: 1860115420}
+  - component: {fileID: 1860115423}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2615,6 +2620,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1860115423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860115419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fa04361dd20ea0438f5381517b947cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingScripts: []
 --- !u!1 &2063992899
 GameObject:
   m_ObjectHideFlags: 0
@@ -2688,7 +2706,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -100
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
