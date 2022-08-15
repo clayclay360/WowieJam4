@@ -34,6 +34,7 @@ public class human : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
+
     public void Bark(Vector2 dogPosition )
     {
         ScareDirection = dogPosition - new Vector2(transform.position.x, transform.position.y);
@@ -56,6 +57,22 @@ public class human : MonoBehaviour
         state = States.Bark_Towards;
     }
 
+    private void LookAtDirection()
+    {
+        if (movement.magnitude >= .1f)
+        {
+            Debug.Log(movement);
+            if (movement.x > 0)
+            {
+                transform.localScale = new Vector2(1,1);
+            }
+            else if(movement.x < 0)
+            {
+                transform.localScale = new Vector2(-1, 1);
+            }
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
@@ -70,7 +87,8 @@ public class human : MonoBehaviour
     {
         HandleState();
 
-        animator.SetFloat("Run", movement.magnitude);
+        //animator.SetFloat("Run", movement.magnitude);
+        LookAtDirection();
 
     }
 

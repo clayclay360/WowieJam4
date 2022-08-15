@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1329170536443223190}
   - component: {fileID: 940031395067535747}
   - component: {fileID: 4727878783814590390}
-  m_Layer: 0
-  m_Name: Player
+  m_Layer: 7
+  m_Name: Doggo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1207572871915571039}
   - component: {fileID: 5543741128322519913}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5604014256066764923}
   - component: {fileID: 3162607756506621902}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
