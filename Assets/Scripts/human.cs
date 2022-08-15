@@ -27,12 +27,17 @@ public class human : MonoBehaviour
 
     public Vector2 movement = new Vector2();
 
+    [Header("Currency")]
+    public int Money;
+
     private Rigidbody2D rigidBody;
     private Animator animator;
+    private GameController gameController;
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        gameController = FindObjectOfType<GameController>();
     }
 
     public void Bark(Vector2 dogPosition )
@@ -61,7 +66,6 @@ public class human : MonoBehaviour
     {
         if (movement.magnitude >= .1f)
         {
-            Debug.Log(movement);
             if (movement.x > 0)
             {
                 transform.localScale = new Vector2(1,1);
@@ -77,19 +81,37 @@ public class human : MonoBehaviour
     {
         
    
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Car")
         {
             //lose
-            print("lose");
+            CarController carController = collision.gameObject.GetComponent<CarController>();
+            if (carController.Go)
+            {
+                gameController.GameOver();
+                gameController.gameStarted = false;
+            }
+        }
+
+        if (collision.gameObject.CompareTag("Currency"))
+        {
+            Money++;
+            gameController.numberOfCoins--;
+            Destroy(collision.gameObject);
+            gameController.walletText.text = "Wallet: $" + Money.ToString();
         }
     }
     private void Update()
     {
-        HandleState();
-
-        //animator.SetFloat("Run", movement.magnitude);
-        LookAtDirection();
-
+        if (gameController.gameStarted)
+        {
+            HandleState();
+            //animator.SetFloat("Run", movement.magnitude);
+            LookAtDirection();
+        }
+        else
+        {
+            rigidBody.velocity = Vector2.zero;
+        }
     }
 
     void HandleState()
@@ -114,7 +136,5 @@ public class human : MonoBehaviour
         }
 
     }
-
-    
 
 }

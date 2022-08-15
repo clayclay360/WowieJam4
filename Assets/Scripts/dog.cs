@@ -14,6 +14,7 @@ public class dog : MonoBehaviour
     public bool barkReady;
 
     private Animator animator;
+    private GameController gameController;
     private void Start()
     {
         humanPlayer = FindObjectOfType<human>();
@@ -21,41 +22,51 @@ public class dog : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         humanPlayer = humanGameObject.GetComponent<human>();
         animator = GetComponent<Animator>();
+        gameController = FindObjectOfType<GameController>();
     }
 
     private void OnCollisionEnter2d(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        CarController carController = collision.gameObject.GetComponent<CarController>();
+        if (carController.Go)
         {
-            print("lost");
+            gameController.GameOver();
+            gameController.gameStarted = false;
         }
     }
     void Update()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-
-        animator.SetFloat("Horizontal", moveX);
-        animator.SetFloat("Vertical", moveY);
-
-        moveDirection =  new Vector2(moveX, moveY);
-        moveDirection.Normalize();
-
-
-        if (Input.GetMouseButtonDown(0) && barkReady)
+        if (gameController.gameStarted)
         {
-            barkReady = false;
-            Bark();
-            StartCoroutine(ReloadBark());
-        }
-        if (Input.GetMouseButtonDown(1) && barkReady)
-        {
-            barkReady = false;
-            BarkTwice();
-            StartCoroutine(ReloadBark());
-        }
+            float moveX = Input.GetAxisRaw("Horizontal");
+            float moveY = Input.GetAxisRaw("Vertical");
 
-        rigidBody.velocity = moveDirection * speed;
+            animator.SetFloat("Horizontal", moveX);
+            animator.SetFloat("Vertical", moveY);
+
+            moveDirection = new Vector2(moveX, moveY);
+            moveDirection.Normalize();
+
+
+            if (Input.GetMouseButtonDown(0) && barkReady)
+            {
+                barkReady = false;
+                Bark();
+                StartCoroutine(ReloadBark());
+            }
+            if (Input.GetMouseButtonDown(1) && barkReady)
+            {
+                barkReady = false;
+                BarkTwice();
+                StartCoroutine(ReloadBark());
+            }
+
+            rigidBody.velocity = moveDirection * speed;
+        }
+        else
+        {
+            rigidBody.velocity = Vector2.zero;
+        }
     }
 
     void Bark()

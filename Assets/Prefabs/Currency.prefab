@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2526073224178298741}
   - component: {fileID: 2526073224178298742}
   - component: {fileID: 2526073224178298740}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Coin
-  m_TagString: Untagged
+  m_TagString: Currency
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,9 +120,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2526073224671314401}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Currency
-  m_TagString: Untagged
+  m_TagString: Currency
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,5 +141,5 @@ Transform:
   m_Children:
   - {fileID: 2526073224178298741}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
