@@ -10,11 +10,17 @@ public class dog : MonoBehaviour
     public float speed = 10;
     public Rigidbody2D rigidBody;
     public Vector2 moveDirection = new Vector2();
+    public float barkRate;
+    public bool barkReady;
 
+    private Animator animator;
     private void Start()
     {
+        humanPlayer = FindObjectOfType<human>();
+        humanGameObject = humanPlayer.gameObject;
         rigidBody = GetComponent<Rigidbody2D>();
         humanPlayer = humanGameObject.GetComponent<human>();
+        animator = GetComponent<Animator>();
     }
 
     private void OnCollisionEnter2d(Collision collision)
@@ -26,18 +32,27 @@ public class dog : MonoBehaviour
     }
     void Update()
     {
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
 
-        moveDirection =  new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        animator.SetFloat("Horizontal", moveX);
+        animator.SetFloat("Vertical", moveY);
+
+        moveDirection =  new Vector2(moveX, moveY);
         moveDirection.Normalize();
 
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && barkReady)
         {
+            barkReady = false;
             Bark();
+            StartCoroutine(ReloadBark());
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && barkReady)
         {
+            barkReady = false;
             BarkTwice();
+            StartCoroutine(ReloadBark());
         }
 
         rigidBody.velocity = moveDirection * speed;
@@ -78,4 +93,10 @@ public class dog : MonoBehaviour
         soundBark.Play();
     }
    
+    IEnumerator ReloadBark()
+    {
+        yield return new WaitForSeconds(barkRate);
+        barkReady = true;
+    }
+
 }
